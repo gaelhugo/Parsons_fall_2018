@@ -13,11 +13,11 @@ Keep it Simple<br/>
 Collect Datas<br/>
 <br/>
 <br/>
-<b>Step 2</b>
+<b>Step 2</b><br/>
 Workshop in class about technical modification relatively to new concepts<br/>
 Change the code</br>
 Adapt the design</br>
 <br/>
 <br/>
-<b>Step 3</b>
+<b>Step 3</b><br/>
 Finalisation & Presentation
