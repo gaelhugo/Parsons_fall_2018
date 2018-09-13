@@ -24,12 +24,16 @@ class Clock {
       'left': 'translateX(100%)'
     };
 
-    fetch('datas/json/images.json')
-        .then(response => response.json())
-        .then((data => {
-                this.images = data.images;
-                this.loadImage();
-              }).bind(this));
+    // fetch('datas/json/images.json')
+    //     .then(response => response.json())
+    //     .then((data => {
+    //             this.images = data.images;
+    //             this.loadImage();
+    //           }).bind(this));
+
+    // WORKAROUND to use the script without server
+    this.images = json.images;
+    this.loadImage();
   }
   loadImage() {
     let img = new Image();
@@ -42,7 +46,7 @@ class Clock {
                      this.launchApplication();
                    }
                  }).bind(this);
-    img.src = '/datas/' + shifted.url;
+    img.src = 'datas/' + shifted.url;
   }
 
   launchApplication() {
