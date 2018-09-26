@@ -62,6 +62,15 @@ class Clock {
         0.00001, this.context.currentTime + 0.3);
     // launch timer
     setInterval(this.appear.bind(this), 1000);
+    // add interaction
+    document.addEventListener('click', this.onClick.bind(this));
+  }
+  onClick(e) {
+    let percentage = e.clientX / window.innerWidth;
+    // go to that particular time
+    if (this.video) {
+      this.video.currentTime = percentage * this.video.duration;
+    }
   }
   appear() {
     let shifted = this.allLayers.shift();
@@ -77,8 +86,22 @@ class Clock {
     if (time.getSeconds() % TIMING == 0) {
       if (!this.contentLayer.classList.contains('show')) {
         let shiftedContent = this.content.shift();
+        // images
         this.contentLayer.style.backgroundImage =
             'url("' + shiftedContent + '")';
+        // video
+        if (this.contentLayer.children.length == 0) {
+          this.contentLayer.innerHTML = '';
+          this.video = document.createElement('video');
+          this.video.setAttribute('autoplay', '');
+          this.video.setAttribute('loop', '');
+          // video.setAttribute('muted', '');
+          this.video.src = './datas/videos/lippo.mp4';
+          this.totalTime = this.video.duration;
+          this.contentLayer.appendChild(this.video);
+          // video.muted = 'muted';
+          this.video.play();
+        }
         this.contentLayer.style.transform = 'translateY(0px)';
         this.contentLayer.style.transform = 'translateX(0px)';
         this.contentLayer.classList.add('show');
