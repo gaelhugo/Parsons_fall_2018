@@ -1,5 +1,5 @@
 'use strict'
-const TIMING = 5;
+let TIMING = 5;
 class Clock {
   constructor() {
     this.top = document.getElementById('top');
@@ -30,26 +30,53 @@ class Clock {
     //             this.images = data.images;
     //             this.loadImage();
     //           }).bind(this));
-
-    // WORKAROUND to use the script without server
-    this.images = json.images;
-    this.loadImage();
+    console.log('Twitter', twitter);
+    // WORKAROUND to use the script without LOCAL server
+    this._content = json.images;
+    this._singleVideo = json.singleVideo;
+    this.SETTING = json.setting;
+    this.loadContent();
   }
-  loadImage() {
-    let img = new Image();
-    let shifted = this.images.shift();
-    img.onload = (function() {
-                   this.content.push(img.src);
-                   if (this.images.length > 0) {
-                     this.loadImage();
-                   } else {
-                     this.launchApplication();
-                   }
-                 }).bind(this);
-    img.src = 'datas/' + shifted.url;
+  loadContent() {
+    let shifted = this._content.shift();
+    // check if we have a video (.mp4)
+    if (shifted.url != undefined) {
+      if (shifted.url.toLowerCase().indexOf('.mp4') != -1) {
+        console.log('video');
+        let video = document.createElement('video');
+        // video.setAttribute('autoplay', '');
+        video.setAttribute('loop', '');
+        video.pause();
+        // video.setAttribute('muted', '');
+        video.onloadeddata =
+            (function() {
+              this.content.push({'data': video, 'text': shifted.text});
+              if (this._content.length > 0) {
+                this.loadContent();
+              } else {
+                this.launchApplication();
+              }
+            }).bind(this);
+        video.src = 'datas/' + shifted.url;
+
+      } else {
+        console.log('image');
+        let img = new Image();
+        img.onload = (function() {
+                       this.content.push({'data': img, 'text': shifted.text});
+                       if (this._content.length > 0) {
+                         this.loadContent();
+                       } else {
+                         this.launchApplication();
+                       }
+                     }).bind(this);
+        img.src = 'datas/' + shifted.url;
+      }
+    }
   }
 
   launchApplication() {
+    console.log('launch app');
     // sound effect
     this.context = new AudioContext();
     this.o = this.context.createOscillator();
@@ -60,10 +87,20 @@ class Clock {
     this.o.start(0);
     this.g.gain.exponentialRampToValueAtTime(
         0.00001, this.context.currentTime + 0.3);
+
+    TIMING = this.SETTING.slide_duration;
     // launch timer
     setInterval(this.appear.bind(this), 1000);
     // add interaction
     document.addEventListener('click', this.onClick.bind(this));
+    // Twitter
+    let _stream =
+        twitter.stream('statuses/filter', {track: 'popular', lang: 'en'});
+    this.twitt = '';
+    _stream.on('data', (function(event) {
+                         // console.log(event);
+                         this.twitt = event.text;
+                       }).bind(this));
   }
   onClick(e) {
     let percentage = e.clientX / window.innerWidth;
@@ -83,35 +120,78 @@ class Clock {
         this.leading(time.getMinutes()) + ':' + this.leading(time.getSeconds());
     this.contentLayer.style.visibility = 'visible';
     //
+
     if (time.getSeconds() % TIMING == 0) {
       if (!this.contentLayer.classList.contains('show')) {
-        let shiftedContent = this.content.shift();
-        // images
-        this.contentLayer.style.backgroundImage =
-            'url("' + shiftedContent + '")';
-        // video
-        if (this.contentLayer.children.length == 0) {
+        TIMING = this.SETTING.content_duration;
+        this.shiftedContent = this.content.shift();
+
+        if (this._singleVideo.url && this.contentLayer.children.length == 0) {
           this.contentLayer.innerHTML = '';
           this.video = document.createElement('video');
           this.video.setAttribute('autoplay', '');
           this.video.setAttribute('loop', '');
           // video.setAttribute('muted', '');
-          this.video.src = './datas/videos/lippo.mp4';
+          this.video.src = 'datas/' + this._singleVideo.url;
           this.totalTime = this.video.duration;
           this.contentLayer.appendChild(this.video);
           // video.muted = 'muted';
           this.video.play();
+        } else if (!this._singleVideo.url) {
+          /*
+            We have to check if it's an image or a video
+          */
+          // console.log(this.shiftedContent.src);
+          if (this.shiftedContent.data.src.toLowerCase().indexOf('.mp4') !=
+              -1) {
+            this.contentLayer.innerHTML = '';
+            this.shiftedContent.data.play();
+            this.contentLayer.appendChild(this.shiftedContent.data);
+            this.totalTime = this.shiftedContent.data.duration;
+
+          } else {
+            this.contentLayer.innerHTML = '';
+            // images
+            this.contentLayer.style.backgroundImage =
+                'url("' + this.shiftedContent.data.src + '")';
+          }
+
+          /*
+            LET'S ADD SOME TEXT CONTENT
+          */
+          let textLayer = document.createElement('div');
+          textLayer.className = 'textLayer';
+          // TWITTER OPTION
+          // textLayer.textContent = this.twitt;
+          textLayer.textContent = this.shiftedContent.text;
+          this.contentLayer.appendChild(textLayer);
+          this.content.push(this.shiftedContent);
         }
+
+        if (this._singleVideo.url) {
+          let timing = this._singleVideo.timing.shift();
+          this._singleVideo.timing.push(timing);
+          this.video.currentTime = timing;  // percentage * this.video.duration;
+        }
+
         this.contentLayer.style.transform = 'translateY(0px)';
         this.contentLayer.style.transform = 'translateX(0px)';
         this.contentLayer.classList.add('show');
-        this.content.push(shiftedContent);
+
       } else {
         this.previousExit = shifted.id;
         this.contentLayer.style.transform = this.translate[shifted.id];
         this.contentLayer.classList.remove('show');
+        if (this.shiftedContent != undefined &&
+            this.shiftedContent.data.src.toLowerCase().indexOf('.mp4') != -1) {
+          // console.log(this.shiftedContent, 'should pause');
+          this.shiftedContent.data.pause();
+        } else {
+          // console.log('no content', this.shiftedContent);
+        }
+        TIMING = this.SETTING.slide_duration;
       }
-    }
+    }  //
 
     // sound effect
     this.o.frequency.value = (time.getSeconds() % 2 == 0) ? 800 : 400;
@@ -130,6 +210,7 @@ class Clock {
         }
       }
     }
+    // console.log(TIMING);
   }
   layerontransitionend(e) {
     if (!this.contentLayer.classList.contains('show')) {

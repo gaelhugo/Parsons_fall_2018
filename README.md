@@ -16,3 +16,9 @@ Begin to collect the data necessary to build your cultural clock design (images,
 <br/>
 <b>Step 3</b> (Week 7: Oct. 10)<br/>
 Finishing touches & Presentation of final cultural clock projects
+<br/>
+<br/>
+<br/>
+<b>NOTES</b><br/>
+1. The JSON file has been replaced by a simple JS variable file. To Avoid setting up a local server.<br/>
+The regular way to do it would be : launching a simple server, that allows "fetching" the datas.<br/><br/>
