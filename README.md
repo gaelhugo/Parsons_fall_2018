@@ -22,3 +22,5 @@ Finishing touches & Presentation of final cultural clock projects
 <b>NOTES</b><br/>
 1. The JSON file has been replaced by a simple JS variable file. To Avoid setting up a local server.<br/>
 The regular way to do it would be : launching a simple server, that allows "fetching" the datas.<br/><br/>
+2. TWITTER API has been integrated into the main project. The actual feed is 'statuses/filter' on 'popular' in english.
+These parameters can be updated following TWITTER API's <a href="https://developer.twitter.com/en/docs/api-reference-index" target="_blank">documentation</a>.
