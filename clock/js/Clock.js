@@ -24,17 +24,19 @@ class Clock {
       'left': 'translateX(100%)'
     };
 
+    this._singleVideo = json.singleVideo;
+    this.SETTING = json.setting;
+    /* TO UNCOMMENT IF USING A LOCAL SERVER */
     // fetch('datas/json/images.json')
     //     .then(response => response.json())
     //     .then((data => {
     //             this.images = data.images;
     //             this.loadImage();
     //           }).bind(this));
-    console.log('Twitter', twitter);
+
     // WORKAROUND to use the script without LOCAL server
+    /* TO COMMENT IF USING A LOCAL SERVER*/
     this._content = json.images;
-    this._singleVideo = json.singleVideo;
-    this.SETTING = json.setting;
     this.loadContent();
   }
   loadContent() {
