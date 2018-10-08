@@ -1,22 +1,40 @@
 <html>
 
-  <head>
-    <meta name="viewport" content="width=device-width, user-scalable=no">
-    <title>CULTURAL CLOCK</title>
-    <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+<head>
+  <title>StreeMap Clock</title>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpxbacQ8Hw6rdMbXxpJfUstm7tu7Cc-ko"></script>
+  <script  src="js/App.js"></script>
+  <style>
+     /* Always set the map height explicitly to define the size of the div
+      * element that contains the map. */
+     #map {
+       height: 100%;
+     }
+     /* Optional: Makes the sample page fill the window. */
+     html, body {
+       height: 100%;
+       margin: 0;
+       padding: 0;
+     }
+     canvas{
+       position: absolute;
+       top:0px;
+       pointer-events: none;
+     }
+     #pano{
+       position: absolute;
+       top:0px;
+       right:0px;
+       width:300px;
+       height:300px;
+     }
+   </style>
+</head>
+<body>
 
-    <link href="css/style.css" rel="stylesheet">
-    <script type="text/javascript" src="datas/json/images.js"></script>
-    <script type="text/javascript" src="js/Clock.js"></script>
-  </head>
-  <body>
-    <div id="wrapper">
-      <div class="layer" id="top"></div>
-      <div class="layer" id="right"></div>
-      <div class="layer" id="bottom"></div>
-      <div class="layer" id="left"></div>
-      <div class="layer" id="content"></div>
-    </div>
-    <div id="clock" class="layer"></div>
-  </body>
+ <div id="map"></div>
+<canvas></canvas>
+<div id="pano"></div>
+</body>
+
 </html>
