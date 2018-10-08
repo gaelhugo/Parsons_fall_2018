@@ -130,7 +130,8 @@ class App {
     let seconds = this.getTopPosition(
         time.getSeconds(), 6, window.innerHeight / 2.5, center);
     let hours = this.getTopPosition(
-        time.getHours(), 30, window.innerHeight / 4, center);
+        time.getHours() + (time.getMinutes() / 60), 30, window.innerHeight / 4,
+        center);
     let minutes = this.getTopPosition(
         time.getMinutes(), 6, window.innerHeight / 2.5, center);
 
@@ -154,7 +155,6 @@ class App {
     this.ctx.lineTo(seconds.x, seconds.y);
     this.ctx.stroke();
     this.ctx.closePath();
-
 
     // UPDATE STREETVIEW
     if (time.getSeconds() % 5 == 0) {
