@@ -24,3 +24,9 @@ Finishing touches & Presentation of final cultural clock projects
 The regular way to do it would be : launching a simple server, that allows "fetching" the datas.<br/><br/>
 2. TWITTER API has been integrated into the main project. The actual feed is 'statuses/filter' on 'popular' in english.
 These parameters can be updated following TWITTER API's <a href="https://developer.twitter.com/en/docs/api-reference-index" target="_blank">documentation</a>.
+<br/>
+<br/>
+<u>Note on twitter implementation</u><br/>
+Except if you're running that script from a secured https url, you'll have an issue to connect to the twitter API.<br/>
+To bypass that issue, you have to open CHROME with that command line : <b>open -a Google\ Chrome --args --disable-web-security --user-data-dir</b><br/>
+That will unflag the web-security restriction on your browser. As soon as you close your Chrome application, the security will be back on.
