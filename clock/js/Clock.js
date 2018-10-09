@@ -30,8 +30,8 @@ class Clock {
     // fetch('datas/json/images.json')
     //     .then(response => response.json())
     //     .then((data => {
-    //             this.images = data.images;
-    //             this.loadImage();
+    //             this._content = data.images;
+    //             this.loadContent();
     //           }).bind(this));
 
     // WORKAROUND to use the script without LOCAL server
