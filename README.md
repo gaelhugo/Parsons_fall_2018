@@ -15,4 +15,5 @@ Begin to collect the data necessary to build your cultural clock design (images,
  Workshop in class about how to make the technical modifications to build a new clock concept. You must have your data set ready by this time to change the code and adapt the design. In class: finalize working partners for this project. <br/>
 <br/>
 <b>Step 3</b> (Week 7: Oct. 10)<br/>
-Finishing touches & Presentation of final cultural clock projects
+Finishing touches & Presentation of final cultural clock projects<br/><br/>
+<b>Grayscale example</b>

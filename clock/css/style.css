@@ -77,3 +77,8 @@ body{
   background-position: center;
   transform:translateY(-100%);
 }
+#test_img{
+  position: absolute;
+  top:0px;
+  z-index: 3;
+}
