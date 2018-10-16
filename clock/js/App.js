@@ -161,6 +161,16 @@ class App {
       console.log('now');
       let latlng = this.fromPixelToLatLng(minutes);
       let fenway = {lat: latlng.lat(), lng: latlng.lng()};
+      // coordinate have to be converted into google map object
+      let pyrmont = new google.maps.LatLng(latlng.lat(), latlng.lng());
+      let request = {
+        location: pyrmont,
+        radius: '200',
+        type: ['museum', 'gallery']
+      };
+      // USE THE SERVICE
+      let service = new google.maps.places.PlacesService(this.map);
+      service.nearbySearch(request, this.callback.bind(this));
       let panorama =
           new google.maps.StreetViewPanorama(document.getElementById('pano'), {
             position: fenway,
@@ -177,6 +187,18 @@ class App {
           });
     }
     setTimeout(this.launchSeconds.bind(this), 1000);
+  }
+  callback(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+      for (let i = 0; i < results.length; i++) {
+        let place = results[i];
+        try {
+          // to access images for example ....
+          console.log(place.photos[0].getUrl());
+        } catch (error) {
+        }
+      }
+    }
   }
   getTopPosition(time, degree, ratio, center) {
     let x = center.x + Math.cos((time * degree - 90) * Math.PI / 180) * ratio;
