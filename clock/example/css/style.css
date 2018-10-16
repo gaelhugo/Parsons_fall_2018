@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css?family=Frijole');
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web:400,700);
+@import url('https://fonts.googleapis.com/css?family=Crimson+Text');
+
+body{
+	margin:0;
+}
+
+#text1{
+
+	font-size: 100px;
+	position: relative;
+	text-align: center;
+	font-family: "Crimson";
+	z-index: 100;
+	color: white;
+	margin: 0px;
+	top: 350px;
+}
+
+#text2{
+
+	font-size: 36px;
+	position: relative;
+	text-align: center;
+	font-family: "Crimson";
+	z-index: 100;
+	color: white;
+	margin: 0px;
+	top: 350px;
+}
+
+
+#mainImage{
+/*	filter: gray;*/
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	margin: 0px;
+	border: 0px;
+	padding: 0px;
+	filter: grayscale(40%);
+	filter: brightness(70%);
+	position: absolute;
+	z-index: -100;
+}
+
+#date{
+	font-size: 40px;
+	z-index: 110;
+	color: white;
+	position: absolute;
+/*	top: -1080px;*/
+	font-family: "Crimson";
+	left: 45%;
+	top: 54%;
+}
+
+#date2{
+	font-size: 40px;a
+	z-index: 110;
+	color: white;
+	position: absolute;
+/*	top: -1110px;*/
+	font-family: "Crimson";
+	left: 46.5%;
+	top: 60%;
+
+}
+}
