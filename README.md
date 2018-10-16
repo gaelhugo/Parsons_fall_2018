@@ -15,4 +15,13 @@ Begin to collect the data necessary to build your cultural clock design (images,
  Workshop in class about how to make the technical modifications to build a new clock concept. You must have your data set ready by this time to change the code and adapt the design. In class: finalize working partners for this project. <br/>
 <br/>
 <b>Step 3</b> (Week 7: Oct. 10)<br/>
-Finishing touches & Presentation of final cultural clock projects
+Finishing touches & Presentation of final cultural clock projects<br>
+<br>
+<b>Streetview clock</b><br/>
+- Get the user position<br/>
+- Set a clock around his/her position<br/>
+- Detect the top of the minutes hand to update a streetview layer<br/>
+- Each five seconds, detection of a place of interest<br/>
+<br/>
+Don't forget to add the library :<br/>
+https://maps.googleapis.com/maps/api/js?key= [YOUR_API_KEY] &libraries=places
